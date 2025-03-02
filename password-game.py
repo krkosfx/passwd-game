@@ -12,7 +12,6 @@ def hack_game():
     print("2. Средний (5 символов)")
     print("3. Сложный (6 символов)")
     
-    # Выбор уровня сложности
     while True:
         try:
             difficulty = int(input("\nВыберите уровень сложности (введите 1, 2 или 3): "))
@@ -22,17 +21,14 @@ def hack_game():
         except ValueError:
             print("Пожалуйста, введите 1, 2 или 3.")
     
-    # Устанавливаем длину буквеного кода
-    code_length = 4 + (difficulty - 1)  # 4 для легкого, 5 для среднего, 6 для сложного
-    attempts = 10 - difficulty  # Легкий - 9 попыток, Средний - 8, Сложный - 7
+    code_length = 4 + (difficulty - 1)
+    attempts = 10 - difficulty
 
-    # Генерируем секретный буквенный пароль
     secret_word = ''.join(random.choices(string.ascii_lowercase, k=code_length))
     
     print(f"\nСекретный буквенный пароль состоит из {code_length} букв.")
     print(f"У вас есть {attempts} попыток угадать пароль.\n")
 
-    # Этап 1: Угадать буквенный пароль
     for attempt in range(1, attempts + 1):
         guess = input(f"Попытка {attempt}/{attempts}. Введите {code_length}-буквенный пароль: ").lower()
         
@@ -40,7 +36,6 @@ def hack_game():
             print("\n=== Успех! Вы угадали буквенный пароль! ===")
             break
         else:
-            # Подсказки для пользователя
             common_letters = sum(1 for a, b in zip(secret_word, guess) if a == b)
             print(f"Неверно. Совпадающих букв в правильных местах: {common_letters}")
     else:
@@ -48,13 +43,12 @@ def hack_game():
         time.sleep(4)
         return
     
-    # Этап 2: Угадать трехзначный числовой пароль за минуту
     print("\nТеперь вы должны угадать трехзначный числовой пароль за 60 секунд!")
     secret_number = random.randint(100, 999)
     start_time = time.time()
     guessed = False
 
-    while time.time() - start_time < 60:  # Проверяем, не истекло ли 60 секунд
+    while time.time() - start_time < 60:
         guess = input("Введите трехзначный числовой пароль: ")
         if not guess.isdigit() or len(guess) != 3:
             print("Пожалуйста, введите корректный трехзначный числовой пароль.")
@@ -74,5 +68,4 @@ def hack_game():
     else:
         print("\nПоздравляем! Вы успешно завершили хакерскую симуляцию!")
 
-# Запуск игры
 hack_game()
